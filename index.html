@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Para Gissy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { background: black; margin: 0; overflow: hidden; font-family: 'Courier New', monospace; }
+        canvas { display: block; }
+        #mensaje-contenedor {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: #0F0; text-shadow: 0 0 10px #0F0; font-size: 1.5rem; text-align: center;
+            background: rgba(0, 0, 0, 0.9); padding: 25px; border: 1px solid #0F0;
+            width: 85%; max-width: 450px; border-radius: 15px; z-index: 10;
+        }
+        .botones { margin-top: 20px; display: none; justify-content: space-around; }
+        button {
+            background: transparent; border: 1px solid #0F0; color: #0F0;
+            padding: 10px 25px; cursor: pointer; font-family: 'Courier New', monospace;
+            font-size: 1.2rem; border-radius: 5px; transition: 0.3s;
+        }
+        button:hover { background: #0F0; color: black; box-shadow: 0 0 20px #0F0; }
+        b { color: #FFF; text-shadow: 0 0 5px #0F0; }
+    </style>
+</head>
+<body>
+    <div id="mensaje-contenedor">
+        <div id="texto">SISTEMA INICIALIZADO...<br>DECODIFICANDO ARCHIVO...</div>
+        <div id="opciones" class="botones">
+            <button onclick="respuesta('si')">SÍ</button>
+            <button onclick="respuesta('no')">NO</button>
+        </div>
+    </div>
+    <canvas id="matrix"></canvas>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0F0";
+            ctx.font = fontSize + "px monospace";
+            drops.forEach((y, i) => {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, y * fontSize);
+                if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+
+        setTimeout(() => {
+            document.getElementById('texto').innerHTML = "Hola <b>Gissy</b>,<br>Me gusta mucho platicar contigo las pocas veces que lo hacemos.";
+        }, 3000);
+
+        setTimeout(() => {
+            document.getElementById('texto').innerHTML = "Me pareces una chica muy interesante y me gustaría conocerte más...<br><br><b>¿Te gustaría ir por un café?</b>";
+            document.getElementById('opciones').style.display = 'flex';
+        }, 7000);
+
+        function respuesta(voto) {
+            const contenedor = document.getElementById('mensaje-contenedor');
+            if (voto === 'si') {
+                contenedor.innerHTML = "¡Qué alegría! ✨<br><br>Entonces quedamos para vernos este <b>17 de enero 2026</b>.<br><br>¡Ahí nos vemos!";
+            } else {
+                contenedor.innerHTML = "Entiendo perfectamente, Gissy. 😊<br><br>No te preocupes, disculpa las molestias. ¡Que tengas un lindo día!";
+            }
+        }
+        setInterval(draw, 33);
+    </script>
+</body>
+</html>
