@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Para Jennifer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { background: black; margin: 0; overflow: hidden; font-family: 'Courier New', monospace; }
+        canvas { display: block; }
+        #mensaje-contenedor {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: #00FFFF; text-shadow: 0 0 10px #00CED1; font-size: 1.5rem; text-align: center;
+            background: rgba(0, 0, 0, 0.9); padding: 25px; border: 1px solid #00FFFF;
+            width: 85%; max-width: 450px; border-radius: 15px; z-index: 10;
+        }
+        b { color: #FFF; text-shadow: 0 0 5px #00FFFF; }
+    </style>
+</head>
+<body>
+    <div id="mensaje-contenedor">
+        <div id="texto">SISTEMA INICIALIZADO...<br>BUSCANDO REGISTRO...</div>
+    </div>
+    <canvas id="matrix"></canvas>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = "JENNIFER0123456789@#$%^&*()✨";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#00FFFF"; 
+            ctx.font = fontSize + "px monospace";
+            drops.forEach((y, i) => {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, y * fontSize);
+                if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+
+        setTimeout(() => {
+            document.getElementById('texto').innerHTML = "Hola <b>Jennifer</b>...";
+        }, 3000);
+
+        setTimeout(() => {
+            document.getElementById('texto').innerHTML = "Solo quería decirte que fue...<br><br><b>¡Un gusto conocerte!</b> 😊";
+        }, 7000);
+
+        setInterval(draw, 33);
+    </script>
+</body>
+</html>
