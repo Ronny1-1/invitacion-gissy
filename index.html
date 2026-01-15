@@ -8,18 +8,18 @@
         canvas { display: block; }
         #mensaje-contenedor {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            color: #0F0; text-shadow: 0 0 10px #0F0; font-size: 1.5rem; text-align: center;
-            background: rgba(0, 0, 0, 0.9); padding: 25px; border: 1px solid #0F0;
+            color: #FF69B4; text-shadow: 0 0 10px #FF1493; font-size: 1.5rem; text-align: center;
+            background: rgba(0, 0, 0, 0.9); padding: 25px; border: 1px solid #FF1493;
             width: 85%; max-width: 450px; border-radius: 15px; z-index: 10;
         }
         .botones { margin-top: 20px; display: none; justify-content: space-around; }
         button {
-            background: transparent; border: 1px solid #0F0; color: #0F0;
+            background: transparent; border: 1px solid #FF1493; color: #FF1493;
             padding: 10px 25px; cursor: pointer; font-family: 'Courier New', monospace;
             font-size: 1.2rem; border-radius: 5px; transition: 0.3s;
         }
-        button:hover { background: #0F0; color: black; box-shadow: 0 0 20px #0F0; }
-        b { color: #FFF; text-shadow: 0 0 5px #0F0; }
+        button:hover { background: #FF1493; color: white; box-shadow: 0 0 20px #FF1493; }
+        b { color: #FFF; text-shadow: 0 0 5px #FF1493; }
     </style>
 </head>
 <body>
@@ -37,7 +37,9 @@
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()";
+
+        // Caracteres más "románticos" mezclados
+        const letters = "GISSYLOVE123456789@#$%^&*()♥🌸✨";
         const fontSize = 16;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
@@ -45,7 +47,7 @@
         function draw() {
             ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#0F0";
+            ctx.fillStyle = "#FF69B4"; // Color Rosado
             ctx.font = fontSize + "px monospace";
             drops.forEach((y, i) => {
                 const text = letters[Math.floor(Math.random() * letters.length)];
